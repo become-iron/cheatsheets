@@ -14,24 +14,30 @@ or
 
 ## Create database
 
-```createdb <db_name>```
+```createdb <db>```
 
 ## Drop database
 
-```dropdb -f <db_name>```
+```dropdb -f <db>```
 
 `-f` stands for force drop
 
+Recreate the database running in Docker container:
+
+```docker compose exec -it <service> bash -c "dropdb -f -U <user> <db>; createdb -U <user> <db>"```
+
+```docker exec -it <container> bash -c "dropdb -f -U <user> <db>; createdb -U <user> <db>"```
+
 ## Dump database
 
-```pg_dump <db_name> > /path/to/dump`date +%Y-%m-%d_%H-%M`.sql```
+```pg_dump <db> > /path/to/dump`date +%Y-%m-%d_%H-%M`.sql```
 
 ## Restore database from dump
 
-```psql -d <db_name> < /path/to/dump.sql```
+```psql -d <db> < /path/to/dump.sql```
 
 ## Dump remote database from docker container and transfer the dump to a local machine
 
 ```
-ssh <user>@<ip> "docker exec -t <container_name> pg_dump <db_name> -U postgres | gzip -9" | gzip -d > /path/to/dump_`date +%Y-%m-%d_%H-%M`.sql
+ssh <user>@<ip> "docker exec -t <container_name> pg_dump <db> -U postgres | gzip -9" | gzip -d > /path/to/dump_`date +%Y-%m-%d_%H-%M`.sql
 ```
