@@ -36,6 +36,12 @@ Recreate the database running in Docker container:
 
 ```psql -d <db> < /path/to/dump.sql```
 
+From a TAR file:
+
+```pg_restore -c -U <user> -d <db> /path/to/file.tar```
+
+> `-c` is for `--clean`, DROP all the objects that will be restored
+
 ## Dump remote database from docker container and transfer the dump to a local machine
 
 ```
